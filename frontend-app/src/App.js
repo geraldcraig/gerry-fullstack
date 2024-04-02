@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
 
-function App() {
+import Layout from './components/Layout';
+import Messages from './components/Messages';
+import AboutTheApp from './components/AboutTheApp';
+import ListAllProducts from './components/ListAllProducts';
+import ProductSearchByName from "./components/ProductSearchByName";
+import ProductSearchByDescription from "./components/ProductSearchByDescription";
+import ProductSearchByStockLevel from "./components/ProductSearchByStockLevel";
+import ProductReviews from "./components/ProductReviews";
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="messages" element={<Messages />} />
+            <Route path="abouttheapp" element={<AboutTheApp />} />
+            <Route path="listallproducts" element={<ListAllProducts />} />
+            <Route path="productsearchbyname" element={<ProductSearchByName />} />
+            <Route path="producsearchtbydescription" element={<ProductSearchByDescription />} />
+            <Route path="producsearchbystocklevel" element={<ProductSearchByStockLevel />} />
+            <Route path="reviews" element={<ProductReviews />} />
+            <Route path="*" element={<p>There's nothing here: 404!</p>} />
+          </Route>
+        </Routes>
   );
-}
+};
 
 export default App;

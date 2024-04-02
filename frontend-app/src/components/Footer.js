@@ -1,10 +1,21 @@
-import React from 'react';
+import React from "react";
+import { Container,Row, Col } from "react-bootstrap";
 
-export default function AboutTheApp() {
-  return (
-    <div>
-      <h1>About the App</h1>
-      <p>This app is a full stack application that uses React for the frontend and Node.js for the backend.</p>
-    </div>
-  );
-}
+const Footer = () => {
+    return (
+        <Container>
+            <Row><hr style={{ color: "blue" }}></hr></Row>
+            <Row style={{ color: 'blue', textAlign: 'center' }}>
+                <Col md={2}><h3>ReactJS</h3></Col>
+                <Col md={8}><h3>Fullstack Development Project Application</h3></Col>
+                <Col md={2}><h3>Gerry Byrne</h3></Col>
+            </Row>
+            <Row>
+                <Col md={8}></Col>
+            </Row>
+            <Row><hr style={{ color: 'green' }}></hr></Row>
+        </Container>
+    );
+};
+
+export default Footer;

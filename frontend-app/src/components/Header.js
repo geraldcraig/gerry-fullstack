@@ -1,10 +1,21 @@
-import React from 'react';
+import React from "react";
+import { Container,Row, Col } from "react-bootstrap";
+import headingimage from '../images/books.jpg';
 
-export default function AboutTheApp() {
-  return (
-    <div>
-      <h1>About the App</h1>
-      <p>This app is a full stack application that uses React for the frontend and Node.js for the backend.</p>
-    </div>
-  );
-}
+const Header = () => {
+    return (
+        <Container>
+            <Row>
+                <Col md={2}>
+                </Col>
+                <Col md={8}>
+                    <img src={headingimage} alt="headingimage" style={{ width: '100%'}}/>
+                </Col>
+                <Col md={2}>
+                </Col>
+            </Row>
+        </Container>
+    );
+};
+
+export default Header;
