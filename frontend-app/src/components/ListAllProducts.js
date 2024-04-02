@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Button, Card, Container, Row} from "react-bootstrap";
 import ProductForm from "./ProductForm";
 import AddReviewForm from "./AddReviewForm";
+// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function ListAllProducts() {
   const [products, setProducts] = useState([]);
@@ -26,6 +28,9 @@ function ListAllProducts() {
   const [currentProductReview, setCurrentProductReview] = useState(initialReviewState);
 
   const baseURL = "http://localhost:8080";
+
+//   const history = useHistory();
+  const navigate = useNavigate();
 
   // The useEffect is a hook to fetch the list of items from the API when the component mounts.
   // Using fetch
@@ -80,28 +85,42 @@ function ListAllProducts() {
     console.log(updatedProduct);
   };
 
-  const addProductReview = (review) => {
+//   const addProductReview = (review) => {
+//     fetch(`${baseURL}/api/reviews`, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(review),
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//           setReviews([...reviews, data])
+//         });
+//   };
+
+const addProductReview = (product) => {
+    
     fetch(`${baseURL}/api/reviews`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(review),
+      body: JSON.stringify(product),
     })
-        .then(response => response.json())
-        .then(data => {
-          setReviews([...reviews, data])
-        });
+      .then(response => response.json())
+      .then(data => {
+        setReviews([...reviews, data]);
+        navigate('/reviews'); // navigate to ProductReviews component
+      });
   };
 
-  const updateProductReview = (id, updatedReview) => {
-    setEditing(false);
-    fetch(`${baseURL}/api/reviews/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedReview)
-    }).then(() => {
-      setReviews(reviews.map(review => (review.id === id ? updatedReview : review)))
-    });
-  };
+//   const updateProductReview = (id, updatedReview) => {
+//     setEditing(false);
+//     fetch(`${baseURL}/api/reviews/${id}`, {
+//       method: 'PUT',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(updatedReview)
+//     }).then(() => {
+//       setReviews(reviews.map(review => (review.id === id ? updatedReview : review)))
+//     });
+//   };
 
   const editRow = (product) => {
     setEditing(true);
@@ -115,12 +134,12 @@ function ListAllProducts() {
     console.log(currentProduct);
   };
 
-  const reviewRow = (product) => {
+  const reviewRow = (review) => {
     setReviewEditing(true);
     setCurrentProductReview({
       // id: product.id,
-      name: product.name,
-      description: product.description,
+      name: review.name,
+      description: review.description,
     });
     console.log(currentProductReview);
   };
@@ -215,7 +234,6 @@ function ListAllProducts() {
                     setEditing={setEditing}
                     currentProduct={currentProduct}
                     updateProduct={updateProduct}
-                    // reviewProduct={reviewProduct}
                   />
                 </div>
               </Card.Body>
@@ -237,6 +255,7 @@ function ListAllProducts() {
                   <Card.Body>
                     <div>
                       <AddReviewForm
+                      product={updateProduct}
                         // reviewEditing={reviewEditing}
                         // setReviewEditing={setReviewEditing}
                         // currentProductReview={currentProductReview}
